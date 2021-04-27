@@ -36,7 +36,7 @@
     <string>PushButton</string>
    </property>
   </widget>
-  <widget class="QWidget" name="">
+  <widget class="QWidget" name="layoutWidget">
    <property name="geometry">
     <rect>
      <x>11</x>
@@ -260,7 +260,38 @@
     <widget class="QTableView" name="tableView"/>
    </widget>
   </widget>
+  <widget class="Handle" name="handle1" native="true">
+   <property name="geometry">
+    <rect>
+     <x>570</x>
+     <y>330</y>
+     <width>200</width>
+     <height>200</height>
+    </rect>
+   </property>
+   <property name="minimumSize">
+    <size>
+     <width>150</width>
+     <height>150</height>
+    </size>
+   </property>
+   <property name="maximumSize">
+    <size>
+     <width>200</width>
+     <height>200</height>
+    </size>
+   </property>
+   <layout class="QGridLayout" name="gridLayout_3"/>
+  </widget>
  </widget>
+ <customwidgets>
+  <customwidget>
+   <class>Handle</class>
+   <extends>QWidget</extends>
+   <header location="global">handle.h</header>
+   <container>1</container>
+  </customwidget>
+ </customwidgets>
  <resources/>
  <connections>
   <connection>

@@ -1,0 +1,7 @@
+<RCC>
+    <qresource prefix="/new">
+        <file>image/pad.png</file>
+        <file>image/pad_up.png</file>
+        <file>image/pad_only.png</file>
+    </qresource>
+</RCC>

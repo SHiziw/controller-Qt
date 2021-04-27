@@ -25,6 +25,13 @@ Widget::Widget(QWidget *parent)
                 ui->listView,SLOT(setRootIndex(QModelIndex)));
         connect(ui->treeView,SIGNAL(clicked(QModelIndex)),
                 ui->tableView,SLOT(setRootIndex(QModelIndex)));
+
+
+        //QPalette pal = palette(); //将背景设为透明
+        //pal.setColor(QPalette::Background, QColor(0x00,0xff,0x00,0x00));
+        //ui->handle1->setPalette(pal);
+
+
 }
 
 Widget::~Widget()
@@ -59,9 +66,9 @@ void Widget::on_btnOpen_clicked()
 Handle::Handle(QWidget *parent)
     : QWidget(parent)
 {
-    setAutoFillBackground(true);
-    setPalette(QPalette(Qt::white));
-    resize(200,200);
+    //setAutoFillBackground(true);
+    //setPalette(QPalette(Qt::white));
+    //resize(200,200);
     setMinimumSize(100,100);
     mouseX=width()/2;
     mouseY=height()/2;
@@ -87,14 +94,14 @@ void Handle::paintEvent(QPaintEvent *){
     padR=side/2; //底盘半径
     padX=padR;//底盘圆心
     padY=padR;//底盘圆心
-    handleR=padR/4;//摇杆圆半径
+    handleR=padR/3.5;//摇杆圆半径
     int handleMaxR=padR-handleR;
-    QColor handleColor(Qt::gray);
+    QColor handleColor(186, 138, 96);
     //加载底盘图像
     painter.save();
 
     painter.scale(side / 400.0, side / 400.0);//坐标会随窗口缩放
-    painter.drawPixmap(0, 0, QPixmap(":/image/pad.png"));
+    painter.drawPixmap(0, 0, QPixmap(":/new/image/pad_only.png"));
     painter.restore();
 
     //自绘底盘
@@ -161,8 +168,8 @@ double Handle::Pointdis(int a,int b,int x,int y){
 int Handle::getKeyNum(){
     int x,y;
     int keynum;
-    x=(int)(handleX*3.0/(padR*2));
-    y=(int)(handleY*3.0/(padR*2));
-    keynum=3*y+x;
+    x=(int)(handleX*10/(padR*2));
+    y=(int)((padR*20-handleY*10)/(padR*2));
+    keynum=10*y+x;
     return keynum;
 }
