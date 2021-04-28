@@ -19,13 +19,11 @@ public:
     ~Widget();
 
 private slots:
-    void on_calculatorBottom_clicked();
 
-    void on_btnOpen_clicked();
+
 
 private:
     Ui::Widget *ui;
-    QFileSystemModel *model;
-    QStringListModel *theModel;
+
 };
 #endif // WIDGET_H

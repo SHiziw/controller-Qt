@@ -3,5 +3,10 @@
         <file>image/pad.png</file>
         <file>image/pad_up.png</file>
         <file>image/pad_only.png</file>
+        <file>image/anniu.png</file>
+        <file>image/pad_only2.png</file>
+        <file>image/pad_up2.png</file>
+        <file>image/surface.png</file>
+        <file>image/anniuB.png</file>
     </qresource>
 </RCC>

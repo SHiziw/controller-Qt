@@ -2,6 +2,7 @@
 #include "ui_widget.h"
 
 #include "handle.h"
+#include "mybutton.h"
 
 Widget::Widget(QWidget *parent)
     : QWidget(parent)
@@ -9,24 +10,18 @@ Widget::Widget(QWidget *parent)
 {
 
     ui->setupUi(this);
-        model=new QFileSystemModel(this); //QFileSystemModel提供单独线程，推荐使用
-        model->setRootPath(QDir::currentPath()); //设置根目录
-        ui->treeView->setModel(model); //设置数据模型
-        ui->listView->setModel(model); //设置数据模型
-        ui->tableView->setModel(model); //设置数据模型
-        //信号与槽关联，treeView单击时，其目录设置为listView和tableView的根节点
-        QStringList theStrList; //保存初始 StringList
-        theStrList<<"北京"<<"上海"<<"天津"<<"河北"<<"山东"<<"四川"<<"重庆"<<"广东"<<"河南"; //初始化 StringList
-        theModel=new QStringListModel(this); //创建数据模型
-        theModel->setStringList(theStrList); //为模型设置StringList，会导入StringList的内容
-        ui->listView->setModel(theModel); //为listView设置数据模型
-        ui->listView->setEditTriggers(QAbstractItemView::DoubleClicked | QAbstractItemView::SelectedClicked);
-        connect(ui->treeView,SIGNAL(clicked(QModelIndex)),
-                ui->listView,SLOT(setRootIndex(QModelIndex)));
-        connect(ui->treeView,SIGNAL(clicked(QModelIndex)),
-                ui->tableView,SLOT(setRootIndex(QModelIndex)));
 
 
+
+
+
+        QImage _image;
+      _image.load(":/new/image/surface.png");
+      setAutoFillBackground(true);   // 这个属性一定要设置
+       QPalette pal(palette());
+        pal.setBrush(QPalette::Window, QBrush(_image.scaled(size(), Qt::IgnoreAspectRatio,
+                          Qt::SmoothTransformation)));
+       setPalette(pal);
         //QPalette pal = palette(); //将背景设为透明
         //pal.setColor(QPalette::Background, QColor(0x00,0xff,0x00,0x00));
         //ui->handle1->setPalette(pal);
@@ -40,27 +35,7 @@ Widget::~Widget()
 }
 
 
-void Widget::on_calculatorBottom_clicked()
-{
-    QString str=ui->NumberTextEdit->toPlainText();//读取n数量n
-        int num=str.toInt();
-        str=ui->PriceTextEdit->toPlainText(); //读取"单价"
-        float price=str.toFloat();
-        float total=num*price;
-        str=str.sprintf ("%.2f",total);
-        ui->TotalLineEdit->setText(str);
 
-}
-void Widget::on_btnOpen_clicked()
-{ //选择单个文件
-    QString curPath=QDir::currentPath();//获取系统当前目录
-    //获取应用程序的路径
-    QString dlgTitle="选择一个文件"; //对话框标题
-    QString filter="文本文件(*.txt);;图片文件(*.jpg *.gif *.png);;所有文件(*.*)"; //文件过滤器
-    QString aFileName=QFileDialog::getOpenFileName(this,dlgTitle,curPath,filter);
-    if (!aFileName.isEmpty())
-        ui->plainTextEdit->appendPlainText(aFileName);
-}
 
 
 Handle::Handle(QWidget *parent)
@@ -101,7 +76,7 @@ void Handle::paintEvent(QPaintEvent *){
     painter.save();
 
     painter.scale(side / 400.0, side / 400.0);//坐标会随窗口缩放
-    painter.drawPixmap(0, 0, QPixmap(":/new/image/pad_only.png"));
+    painter.drawPixmap(0, 0, QPixmap(":/new/image/pad_only2.png"));
     painter.restore();
 
     //自绘底盘
@@ -132,7 +107,9 @@ void Handle::paintEvent(QPaintEvent *){
    // painter.drawText(200,200,tr("%1,%2,%3").arg(handleX).arg(handleY).arg(handPaddis));
     painter.setPen(Qt::NoPen);
     painter.setBrush(handleColor);
-    painter.drawEllipse(QPoint(handleX,handleY),handleR,handleR);//摇杆
+    QPixmap sticker = QPixmap(":/new/image/pad_up2.png");
+     painter.drawPixmap(QPoint(handleX-75,handleY-75), sticker.scaled(150,150));
+    //painter.drawEllipse(QPoint(handleX,handleY),handleR,handleR);//摇杆
 }
 void Handle::mouseMoveEvent(QMouseEvent* event){
     static bool r=false;
